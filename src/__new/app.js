@@ -138,6 +138,13 @@ define(['js/view/widgets/AggregatedChartWidget/AggregatedChartWidget',
         if(Config.toggles.hasOwnProperty("hasNewFeatureInfo") && Config.toggles.hasNewFeatureInfo){
             tools.push(buildFeatureInfoTool());
         }
+		if(Config.toggles.simplifiedUI) {
+        	$('#view-selector').hide();
+        	$('#header').hide();
+			$('#top-toolbar-map-tools').hide();
+			$('#top-toolbar-layers').hide();
+			$('#top-toolbar-tools').hide();
+		}
 
 		widgets.push(buildSharingWidget());
 
