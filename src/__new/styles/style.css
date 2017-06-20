@@ -172,12 +172,15 @@ body.mode-3d #widget-container .placeholder:not(#placeholder-world-wind-widget),
 body.mode-3d #widget-container .placeholder.open:not(#placeholder-world-wind-widget),
 body.mode-3d .x-css-shadow,
 body.mode-3d .floater:not(#floater-world-wind-widget):not(#floater-evaluation-widget):not(#floater-evaluation-widget),
-body.mode-3d .floater.open:not(#floater-world-wind-widget):not(#floater-evaluation-widget):not(#floater-evaluation-widget),
+body.mode-3d .floater.open:not(#floater-world-wind-widget):not(#floater-evaluation-widget):not(#floater-evaluation-widget):not(#floater-dataset):not(#floater-data):not(#floater-statistics),
 body.mode-3d .settings-window:not(#evaluation-widget-settings):not(#categorize-settings) {
     display: none;
 }
 
-body.mode-3d .floater.open#floater-functional-urban-area-result {
+body.mode-3d .floater.open#floater-functional-urban-area-result,
+body.mode-3d .floater.open#floater-dataset,
+body.mode-3d .floater.open#floater-data,
+body.mode-3d .floater.open#floater-statistics {
 	display: block !important;
 }
 
@@ -185,6 +188,26 @@ body.mode-3d .floater.open#floater-functional-urban-area-result {
 	overflow-y: auto;
 }
 
+
+#floater-dataset {
+	position:absolute;
+	top: 30px;
+	width: 600px;
+}
+
+#floater-data {
+	position:absolute;
+	top: 30px;
+	right: 0;
+	width: 600px;
+}
+
+#floater-statistics {
+	position:absolute;
+	top: 30px;
+	right: 0;
+	width: 600px;
+}
 
 .ptr-btn {
 	display: inline-block;
@@ -306,3 +329,27 @@ label.container > input {
 #top-toolbar .item#top-toolbar-functional-urban-area::before {
 	content: '\f0b0';
 }
+
+#top-toolbar .item#top-toolbar-dataset::before {
+	content: "\f201";
+}
+
+#top-toolbar .item#top-toolbar-data::before {
+	content: "\f002";;
+}
+
+#top-toolbar .item#top-toolbar-statistics::before {
+	content: "\f002";;
+}
+
+.word-cloud {
+	position: relative;
+	height: 200px;
+	width: 400px;
+}
+
+.cloud-content, .word-cloud-box {
+	width: 100%;
+	height: 100%;
+}
+

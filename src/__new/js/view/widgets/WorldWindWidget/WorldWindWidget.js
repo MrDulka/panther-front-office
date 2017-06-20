@@ -45,6 +45,13 @@ define([
 		this.deleteFooter(this._widgetSelector);
 
 		options.dispatcher.addListener(this.onEvent.bind(this));
+
+		if(Config.toggles.isTacrPraha) {
+			this._worldWind._wwd.navigator.lookAtLocation = new WorldWind.Location(50.0599361, 14.4317358);
+			this._worldWind._wwd.navigator.range = 15000;
+			
+			this._worldWind.redraw();
+		}
 	};
 
 	WorldWindWidget.prototype = Object.create(Widget.prototype);

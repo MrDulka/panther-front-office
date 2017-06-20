@@ -12,6 +12,7 @@ requirejs.config({
         'underscore': 'lib/underscore-min',
         'text': 'lib/text',
         'wicket': 'lib/wicket',
+		'wordcloud2': 'lib/wordcloud2',
         'worldwind': 'lib/worldwind.min'
     },
 
@@ -41,6 +42,8 @@ define(['js/view/widgets/AggregatedChartWidget/AggregatedChartWidget',
         'js/util/metadata/AnalyticalUnits',
         'js/view/widgets/CityWidget/CityWidget',
         'js/view/widgets/CustomDrawingWidget/CustomDrawingWidget',
+		'js/view/widgets/tacrPraha/DataWidget/DataWidget',
+		'js/view/widgets/tacrPraha/DatasetsWidget/DatasetsWidget',
         'js/view/widgets/EvaluationWidget/EvaluationWidget',
         'js/view/tools/FeatureInfoTool/FeatureInfoTool',
         'js/util/Filter',
@@ -55,6 +58,7 @@ define(['js/view/widgets/AggregatedChartWidget/AggregatedChartWidget',
 		'js/view/widgets/SharingWidget/SharingWidget',
 		'js/stores/internal/SelectionStore',
 		'js/stores/internal/StateStore',
+		'js/view/widgets/tacrPraha/StatisticsWidget/StatisticsWidget',
 		'js/stores/Stores',
         'js/view/TopToolBar',
         'js/view/worldWind/WorldWindMap',
@@ -69,6 +73,8 @@ define(['js/view/widgets/AggregatedChartWidget/AggregatedChartWidget',
              AnalyticalUnits,
              CityWidget,
              CustomDrawingWidget,
+             DataWidget,
+             DatasetWidget,
              EvaluationWidget,
              FeatureInfoTool,
              Filter,
@@ -83,6 +89,7 @@ define(['js/view/widgets/AggregatedChartWidget/AggregatedChartWidget',
 			 SharingWidget,
 			 SelectionStore,
 			 StateStore,
+			 StatisticsWidget,
 			 Stores,
 			 TopToolBar,
              WorldWindMap,
@@ -105,6 +112,30 @@ define(['js/view/widgets/AggregatedChartWidget/AggregatedChartWidget',
 		});
         window.selectionStore = selectionStore;
         Stores.register('selection', selectionStore);
+
+
+		if(Config.toggles.simplifiedUI) {
+			$('#view-selector').hide();
+			$('#header').hide();
+			$('#top-toolbar-map-tools').hide();
+			$('#top-toolbar-layers').hide();
+			$('#top-toolbar-tools').hide();
+		}
+
+		if(Config.toggles.removeOpenLayers) {
+			$('#content-intro').hide();
+			$('#content-intro-guide').hide();
+			$('#content-intro-terms').hide();
+			$('#map-holder').hide();
+			$('#world-wind-container').show();
+			// Top Tool Bar
+			$('body').addClass('mode-3d');
+			$('#content-application').show();
+			$('#content-application').css('top', '0px');
+			$('#top-toolbar').css('top', '0px');
+			$('#sidebar-reports').hide();
+			$('#top-toolbar-3dmap').hide();
+		}
 
         var attributes = buildAttributes();
 
@@ -138,12 +169,10 @@ define(['js/view/widgets/AggregatedChartWidget/AggregatedChartWidget',
         if(Config.toggles.hasOwnProperty("hasNewFeatureInfo") && Config.toggles.hasNewFeatureInfo){
             tools.push(buildFeatureInfoTool());
         }
-		if(Config.toggles.simplifiedUI) {
-        	$('#view-selector').hide();
-        	$('#header').hide();
-			$('#top-toolbar-map-tools').hide();
-			$('#top-toolbar-layers').hide();
-			$('#top-toolbar-tools').hide();
+        if(Config.toggles.openSearch) {
+        	widgets.push(buildDatasetWidget());
+			widgets.push(buildDataWidget());
+			widgets.push(buildStatisticsWidget());
 		}
 
 		widgets.push(buildSharingWidget());
@@ -208,6 +237,13 @@ define(['js/view/widgets/AggregatedChartWidget/AggregatedChartWidget',
             $(".floater, .tool-window, #feature-info-window").removeClass("active");
             $(this).addClass("active");
         });
+
+		if(Config.toggles.removeOpenLayers) {
+			$('#top-toolbar-areas').hide();
+			$('#top-toolbar-map-tools').hide();
+			$('#top-toolbar-selections').hide();
+			$('#floater-world-wind-widget .floater-overlay').hide();
+		}
     });
 
 	/**
@@ -352,5 +388,32 @@ define(['js/view/widgets/AggregatedChartWidget/AggregatedChartWidget',
 		});
 
 		return Widgets.sharing;
+	}
+
+	function buildDatasetWidget() {
+		return new DatasetWidget({
+			elementId: 'dataset',
+			iconId: 'search',
+			name: 'Dataset search',
+			placeholderTargetId: 'widget-container'
+		});
+	}
+
+	function buildDataWidget() {
+		return new DataWidget({
+			elementId: 'data',
+			iconId: 'search',
+			name: 'Data search',
+			placeholderTargetId: 'widget-container'
+		});
+	}
+
+	function buildStatisticsWidget() {
+		return new StatisticsWidget({
+			elementId: 'statistics',
+			iconId: 'line-chart',
+			name: 'Statistics',
+			placeholderTargetId: 'widget-container'
+		});
 	}
 });

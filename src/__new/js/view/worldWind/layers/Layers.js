@@ -205,6 +205,18 @@ define(['../../../error/ArgumentError',
 			case "landsat":
 				layer = new WorldWind.BMNGLandsatLayer();
 				break;
+			case 'jstk':
+				layer = new MyWmsLayer({
+					service: 'http://geoportal.cuzk.cz/WMS_ORTOFOTO_PUB/WMService.aspx',
+					layerNames: 'GR_ORTFOTORGB',
+					sector: new WorldWind.Sector(-90,90,-180,180),
+					levelZeroDelta: new WorldWind.Location(50,15),
+					numLevels: 14,
+					format: "image/png",
+					size: 256,
+					version: "1.1.1"
+				});
+				break;
 		}
 		layer.metadata = {
 			active: true,

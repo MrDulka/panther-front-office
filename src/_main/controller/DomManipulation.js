@@ -62,7 +62,11 @@ Ext.define('PumaMain.controller.DomManipulation', {
 		}
 		
 		$("#map-holder").css({width : w, height : h});
-		$("#world-wind-container").css({width : w, height : h, top: -h});
+		if(!Config.toggles.removeOpenLayers) {
+			$("#world-wind-container").css({width: w, height: h, top: -h});
+		} else {
+			$("#world-wind-container").css({width: w, height: h});
+		}
 		
 		var map = Ext.ComponentQuery.query('#map')[0];
 		var map2 = Ext.ComponentQuery.query('#map2')[0];

@@ -32,14 +32,11 @@ define(['../error/ArgumentError',
 	 * @returns {Promise}
 	 */
 	RemoteJQ.prototype.get = function(){
-		var self = this;
-		return new Promise(function(resolve, reject){
-			$.get(self._url, self._params).done(function(data) {
-				resolve(data);
-			}).catch(function(err){
-				throw new Error(err);
-			});
-		});
+		return $.get(this._url, this._params);
+	};
+
+	RemoteJQ.prototype.post = function(){
+		return $.post(this._url, this._params);
 	};
 
 	return RemoteJQ;

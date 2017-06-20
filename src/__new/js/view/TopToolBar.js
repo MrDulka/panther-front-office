@@ -55,7 +55,16 @@ define([
 			var classesCustomViews3d = Config.auth ? "item disabled" : "item disabled hidden";
 			this._target.append('<div class="' + classesCustomViews3d + '" id="top-toolbar-saved-views">Custom views</div>');
 
+			if(Config.toggles.openSearch) {
+				var classesDatasetsWidget = $('#floater-dataset').hasClass('open') ? "item open" : "item";
+				this._target.append('<div class="' + classesDatasetsWidget + '" id="top-toolbar-dataset" data-for="floater-dataset">Datasets</div>');
 
+				var classesDataWidget = $('#floater-data').hasClass('open') ? "item open" : "item";
+				this._target.append('<div class="' + classesDataWidget + '" id="top-toolbar-data" data-for="floater-data">Data</div>');
+
+				var classesStatisticsWidget = $('#floater-statistics').hasClass('open') ? "item open" : "item";
+				this._target.append('<div class="' + classesStatisticsWidget + '" id="top-toolbar-statistics" data-for="floater-statistics">Statistics</div>');
+			}
 		} else {
 
 			var classesLayers = $('#window-layerpanel').hasClass('open') ? "item open" : "item";
