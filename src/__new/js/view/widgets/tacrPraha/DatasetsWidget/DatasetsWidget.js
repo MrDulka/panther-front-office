@@ -1,9 +1,11 @@
 define([
+	'./SearchingResults',
 	'../../Widget',
 	'resize',
 
 	'jquery'
-], function (Widget,
+], function (SearchingResults,
+			 Widget,
 			 resize,
 
 			 $) {
@@ -15,6 +17,10 @@ define([
 		Widget.apply(this, arguments);
 
 		this.build();
+
+		this._searchingResults = new SearchingResults({
+			targetId: 'search-datasets-results'
+		});
 	};
 
 	DatasetsWidget.prototype = Object.create(Widget.prototype);
@@ -35,8 +41,19 @@ define([
 			$('#floater-dataset').hide();
 		});
 
+		var self = this;
 		$('#searching-terms-form-submit').on('click', function(){
 			// Search for datasets.
+			$.post(Config.url + 'iprquery/terms', {
+				search: $('#searching-terms-form-input').val(),
+				settings: {
+					type: 'or'
+				}
+			}).then(function(data){
+				self._datasets = data;
+
+				self._searchingResults.rebuild(data);
+			});
 		})
 	};
 
@@ -56,28 +73,20 @@ define([
 			'		<button class="searching-submit" type="button" id="searching-terms-form-submit">' +
 			'			<i class="fa fa-search" aria-hidden="true"></i>' +
 			'		</button>' +
+			'	</div>' +
+			'	<div class="results" id="search-datasets-results">' +
+			'		<div></div>' +
+			'	</div>' +
 			'</div>'
 		);
 
 		if(this._datasets) {
 			this.buildTable();
 		}
-
-
 	};
 
 	DatasetsWidget.prototype.buildTable = function() {
-		return '' +
-			'<div class="instructions">'+
-			'	<h2 class="section-title">2. Vyber dataset</h2>'+
-			'	<p class="section-description">Kliknutím na řádek tabulky vyberete dataset.</p>'+
-			'</div>'+
-			'<div class="results">'+
-			'	<div class="results-tables"></div>'+
-			'	<div class="pagination"></div>'+
-			'	<div class="results-overlay"></div>'+
-			'</div>'+
-			'';
+		this._searchingResults.rebuild(this._datasets);
 	};
 
 	/**

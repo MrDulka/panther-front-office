@@ -4,17 +4,19 @@ requirejs.config({
     paths: {
         'css': 'lib/css.min',
         'd3': 'lib/d3.min',
-        'jquery': 'lib/jquery-3.0.0',
-        'jquery-private': 'js/jquery-private',
+        'jquery': 'lib/jquery-3.1.1.min',
+		'jquery-pagination': 'lib/jquery.twbsPagination.min',
+		'jquery-private': 'js/jquery-private',
         'jquery-ui': 'lib/jquery-ui.min',
-        'resize': 'lib/detect-element-resize',
+		'lodash': 'lib/lodash',
+		'resize': 'lib/detect-element-resize',
         'string': 'lib/string',
         'underscore': 'lib/underscore-min',
         'text': 'lib/text',
         'wicket': 'lib/wicket',
 		'wordcloud2': 'lib/wordcloud2',
         'worldwind': 'lib/worldwind.min'
-    },
+	},
 
     map: {
         // '*' means all modules will get 'jquery-private' for their 'jquery' dependency.
@@ -31,6 +33,7 @@ requirejs.config({
 
     shim: {
         'jquery-ui': ['jquery'],
+		'jquery-pagination': ['jquery'],
         'underscore': {
             exports: '_'
         }
@@ -67,7 +70,8 @@ define(['js/view/widgets/AggregatedChartWidget/AggregatedChartWidget',
         'string',
         'jquery',
         'jquery-ui',
-        'underscore'
+        'underscore',
+		'jquery-pagination'
 ], function (AggregatedChartWidget,
 			 Attributes,
              AnalyticalUnits,

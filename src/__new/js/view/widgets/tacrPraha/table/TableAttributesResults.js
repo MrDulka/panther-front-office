@@ -1,11 +1,9 @@
-define(['../../../config',
-    '../../util/Logger',
+define(['../../../../util/Logger',
     './Table',
 
     'jquery',
     'lodash'
-], function (config,
-             Logger,
+], function (Logger,
              Table,
 
              $,

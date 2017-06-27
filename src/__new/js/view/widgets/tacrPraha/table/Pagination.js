@@ -1,5 +1,5 @@
 define([
-    '../../util/Logger',
+    '../../../../util/Logger',
     'string',
     'text!./pagination.html',
 
@@ -49,7 +49,7 @@ define([
      */
     Pagination.prototype.activate = function(tableClass, numOfPages){
         this._pagination.css("display", "block");
-        this._pagination.twbsPagination({
+        /*this._pagination.twbsPagination({
             first: "<<",
             last: ">>",
             next: ">",
@@ -60,14 +60,14 @@ define([
                 $("." + tableClass).hide();
                 $("#" + tableClass + "-" + page).show();
             }
-        });
+        });*/
     };
 
     /**
      * Destroy the pagination functionality
      */
     Pagination.prototype.destroy = function(){
-        this._pagination.twbsPagination('destroy');
+        //this._pagination.twbsPagination('destroy');
         this._pagination.css("display", "none");
     };
 

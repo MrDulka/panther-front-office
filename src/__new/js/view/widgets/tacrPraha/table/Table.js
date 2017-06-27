@@ -1,10 +1,8 @@
-define(['../../../config',
-        '../../util/Logger',
+define(['../../../../util/Logger',
 
     'jquery',
     'lodash'
-], function (config,
-             Logger,
+], function (Logger,
              $,
              _
 ){
@@ -131,8 +129,8 @@ define(['../../../config',
      * @returns {{placeholder: string, value: string}}
      */
     Table.prototype.checkPrefixes = function(text){
-        var prefix = config.sparqlEndpoint;
-        var dsPrefix = config.datasetVocab;
+        var prefix = Config.sparqlEndpoint;
+        var dsPrefix = Config.datasetVocab;
         var pre = "";
 
         if (_.includes(text, dsPrefix)){
